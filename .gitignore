@@ -2,6 +2,12 @@
 *.class
 
 .gradle/
+**/build/
+!src/**/build/
+.gradletasknamecache
+
+# Exclude gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.jar
 
 # Log file
 *.log

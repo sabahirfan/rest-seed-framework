@@ -12,6 +12,8 @@ archivesBaseName = 'rest-seed-framework'
 
 java {
     sourceCompatibility = '17'
+    withJavadocJar()
+    withSourcesJar()
 }
 
 repositories {
@@ -24,12 +26,15 @@ dependencies {
     implementation 'io.rest-assured:json-path:5.4.1'
     implementation 'io.rest-assured:xml-path:5.4.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    implementation 'org.springframework:spring-core:6.1.5'
+    implementation 'org.slf4j:slf4j-api:2.0.12'
     
     // Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.4'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
     testImplementation 'org.mockito:mockito-core:5.11.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.11.0'
+    testImplementation 'ch.qos.logback:logback-classic:1.5.3'
     
     // Lombok for reducing boilerplate
     compileOnly 'org.projectlombok:lombok:1.18.30'
@@ -48,17 +53,47 @@ publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+            
+            pom {
+                name = 'REST Seed Framework'
+                description = 'A reusable framework for seeding test data to REST APIs in Java-based test automation projects'
+                url = 'https://github.com/yourorganization/rest-seed-framework'
+                
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                
+                developers {
+                    developer {
+                        id = 'dtg'
+                        name = 'DTG'
+                        email = 'dtg@example.com'
+                    }
+                }
+                
+                scm {
+                    connection = 'scm:git:git://github.com/yourorganization/rest-seed-framework.git'
+                    developerConnection = 'scm:git:ssh://github.com/yourorganization/rest-seed-framework.git'
+                    url = 'https://github.com/yourorganization/rest-seed-framework'
+                }
+            }
         }
     }
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            url = uri("https://maven.pkg.github.com/yourorganization/rest-seed-framework")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
             }
         }
+        
+        // Local Maven repository for testing
+        mavenLocal()
     }
 }
 

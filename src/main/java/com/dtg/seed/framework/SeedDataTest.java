@@ -1,6 +1,5 @@
 package com.dtg.seed.framework;
 
-import com.crd.otc.functional.BaseTest;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.extension.ExtendWith;
 
